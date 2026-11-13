@@ -14,6 +14,12 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/GavinYanCQ/obsidian-plainob-dashboard/releases/download/1.4.1/PlainOB-1.4.1-installer.zip"><strong>⬇ Download installer · 1.4.1 Preview</strong></a>
+  &nbsp;·&nbsp;
+  <a href="CHANGELOG.md">View changelog</a>
+</p>
+
+<p align="center">
   <a href="#-quick-start">Quick start</a> ·
   <a href="#-features">Features</a> ·
   <a href="docs/INSTALL.en.md">Installation guide</a> ·

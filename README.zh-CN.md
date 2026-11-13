@@ -14,6 +14,12 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/GavinYanCQ/obsidian-plainob-dashboard/releases/download/1.4.1/PlainOB-1.4.1-installer.zip"><strong>⬇ 下载安装包 · 1.4.1 试用版</strong></a>
+  &nbsp;·&nbsp;
+  <a href="CHANGELOG.md">查看更新记录</a>
+</p>
+
+<p align="center">
   <a href="#-快速开始">快速开始</a> ·
   <a href="#-功能">功能介绍</a> ·
   <a href="docs/INSTALL.zh-CN.md">安装指南</a> ·

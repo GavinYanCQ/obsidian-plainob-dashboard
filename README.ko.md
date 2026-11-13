@@ -14,6 +14,12 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/GavinYanCQ/obsidian-plainob-dashboard/releases/download/1.4.1/PlainOB-1.4.1-installer.zip"><strong>⬇ 설치 파일 다운로드 · 1.4.1 미리 보기</strong></a>
+  &nbsp;·&nbsp;
+  <a href="CHANGELOG.md">변경 기록 보기</a>
+</p>
+
+<p align="center">
   <a href="#-빠른-시작">빠른 시작</a> ·
   <a href="#-기능">기능</a> ·
   <a href="docs/INSTALL.en.md">설치 안내(영어)</a> ·

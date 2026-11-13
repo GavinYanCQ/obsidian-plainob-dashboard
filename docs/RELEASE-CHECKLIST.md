@@ -8,7 +8,7 @@
 - [x] Prepare five linked project-page languages (English, Simplified Chinese, Traditional Chinese, Japanese and Korean), bilingual installation instructions, and the MIT license with author credit GavinCQ.
 - [x] Integrate the maintainer-supplied Ko-fi link and unchanged WeChat payment image in all five project pages.
 
-Local preparation verified: public Markdown links resolve; extracted sources rebuild to the identical runtime and can package independently. Archive member counts are recorded in the local verification report. GitHub's Windows/macOS runners have not yet executed this repository workflow. The five project-page languages do not add plugin interface languages: the interface still supports Simplified Chinese and English only. Translated pages have not yet received independent native-speaker review.
+Local preparation verified: public Markdown links resolve; extracted sources rebuild to the identical runtime and can package independently. Archive member counts are recorded in the local verification report. GitHub Actions has also passed the build, all 72 checks and packaging on both Windows and macOS for the published 1.4.1 commit; see the [verified run](https://github.com/GavinYanCQ/obsidian-plainob-dashboard/actions/runs/43394461440). The five project-page languages do not add plugin interface languages: the interface still supports Simplified Chinese and English only. Translated pages have not yet received independent native-speaker review.
 
 Real Windows demo captures are included for both PlainOB interface languages: home, body-text search/navigation, custom bookshelf covers and independent project steps. The search and task animations are keyframe sequences of actual UI operations, not continuous recordings. Task transitions in these animations use the card menu; automated drag input did not trigger the drop, so these captures are not evidence of drag behavior. Prior user acceptance remains the reported evidence for dragging. No personal vault content is included in the published captures.
 
@@ -35,12 +35,15 @@ Use a separate test vault on each OS. Automated filesystem/API simulations do no
 
 Earlier user acceptance covered Windows/macOS task use and cross-device dragging on 1.4.0. These boxes describe clean-install acceptance for the generic 1.4.1 distribution and have not been marked complete on that basis.
 
-## Publication — requires a separate decision
+## Publication status / 发布状态
 
-- [ ] Choose the public GitHub repository and review the exact source archive.
-- [ ] Run the Windows/macOS CI matrix in that repository and inspect results.
-- [ ] Confirm native acceptance results and remaining limitations; set a release tag matching manifest version.
-- [ ] Upload the three runtime files and installer archive to a GitHub preview release.
-- [ ] Verify current Obsidian community submission requirements before requesting listing.
+- [x] Choose the public GitHub repository and review the exact source archive.
+- [x] Run the Windows/macOS CI matrix in that repository and inspect results.
+- [x] Confirm native acceptance results and remaining limitations; set a release tag matching manifest version.
+- [x] Upload the three runtime files and installer archive to a GitHub preview release.
+- [x] Verify all seven release-asset SHA-256 digests; download the public installer and checksum file without login and confirm they match.
+- [x] Add installer download and changelog links to all five project-page languages.
+- [ ] Complete the community-submission code and documentation review before requesting listing.
+- [ ] Submit PlainOB to the Obsidian Community directory.
 
-源码、文档和安装包先在本地准备。创建仓库、推送代码、发布 Release、申请市场上架均为后续独立步骤。
+截至 2026-11-13，[GitHub 仓库](https://github.com/GavinYanCQ/obsidian-plainob-dashboard)与 [1.4.1 预览版 Release](https://github.com/GavinYanCQ/obsidian-plainob-dashboard/releases/tag/1.4.1)已公开，七个附件校验通过，并已验证未登录用户可下载安装包。五种语言首页均提供安装包与更新记录入口。Obsidian 社区上架前检查和提交仍待后续进行。

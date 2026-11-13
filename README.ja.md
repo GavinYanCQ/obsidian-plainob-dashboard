@@ -14,6 +14,12 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/GavinYanCQ/obsidian-plainob-dashboard/releases/download/1.4.1/PlainOB-1.4.1-installer.zip"><strong>⬇ インストーラーをダウンロード · 1.4.1 プレビュー版</strong></a>
+  &nbsp;·&nbsp;
+  <a href="CHANGELOG.md">変更履歴を見る</a>
+</p>
+
+<p align="center">
   <a href="#-はじめに">はじめに</a> ·
   <a href="#-機能">機能</a> ·
   <a href="docs/INSTALL.en.md">インストールガイド（英語）</a> ·
