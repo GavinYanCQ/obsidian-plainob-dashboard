@@ -1,0 +1,9 @@
+{
+  "id": "plainob",
+  "name": "PlainOB",
+  "version": "1.4.1",
+  "minAppVersion": "1.15.0",
+  "description": "Simple Notes & Tasks.",
+  "author": "GavinCQ",
+  "isDesktopOnly": true
+}
