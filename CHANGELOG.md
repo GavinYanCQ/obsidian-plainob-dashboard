@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.4.2 — Release
+
+- Keep fresh-install automatic task updates and category routing paused until setup is confirmed, including across restarts. Preserve compatibility with earlier saved installations.
+- Guard delayed startup, queued jobs and search reads after plugin unload; clean up pending view and note-dialog timers.
+- Prevent duplicate note-creation requests from repeated Enter presses.
+- Search every Markdown note in the vault, including root notes and folders outside the workbench mappings.
+- Replace the manifest tagline with a functional description and add the public author and Ko-fi URLs.
+- Pass 79 local automated checks. The user reported Windows testing and a macOS upgrade from 1.4.0 as working. Official directory scanning remains pending; see [candidate notes](docs/RELEASE-1.4.2.md) and [community review](docs/COMMUNITY-REVIEW.md).
+
+修复安装确认前及插件关闭后的自动处理边界，补充重复创建保护，并扩大搜索范围。已收到 Windows 端 1.4.2 测试正常与 Mac 端升级使用正常的反馈；升级说明补充备份应放在 plugins 目录之外。社区上架尚未完成。
+
 ## 1.4.1 — Preview
 
 Published on 2026-11-13. [Release notes and downloads](https://github.com/GavinYanCQ/obsidian-plainob-dashboard/releases/tag/1.4.1).

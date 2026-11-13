@@ -8,13 +8,13 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/status-preview-blue?style=flat-square" alt="プレビュー版">
+  <img src="https://img.shields.io/badge/status-release-green?style=flat-square" alt="プレビュー版">
   <img src="https://img.shields.io/badge/desktop-Windows%20%7C%20macOS-555?style=flat-square" alt="Windows・macOS デスクトップ版">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="MIT ライセンス"></a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/GavinYanCQ/obsidian-plainob-dashboard/releases/download/1.4.1/PlainOB-1.4.1-installer.zip"><strong>⬇ インストーラーをダウンロード · 1.4.1 プレビュー版</strong></a>
+  <a href="https://github.com/GavinYanCQ/obsidian-plainob-dashboard/releases/download/1.4.2/PlainOB-1.4.2-installer.zip"><strong>⬇ インストーラーをダウンロード · 1.4.2</strong></a>
   &nbsp;·&nbsp;
   <a href="CHANGELOG.md">変更履歴を見る</a>
 </p>
@@ -42,7 +42,7 @@ Obsidian を開いたとき、最初に目に入るのが壁紙、カレンダ�
 2. **初期設定：**新しい構成を作るか、既存のフォルダに対応付けるかを選びます。表示言語を選択し、変更内容をプレビューしてから適用します。
 3. **使い始める：**アイデアを記録したり、ノートを作成したり、ノートの task プロパティをオンにしてタスクにします。カードを Backlog（未着手）、Active（進行中）、Done（完了）の間で移動できます。
 
-**Windows または macOS のデスクトップ版 Obsidian 1.15.0 以降**が必要です。現在は **1.4.1 プレビュー版**で、手動インストールに対応しています。コミュニティプラグイン一覧にはまだ掲載されていません。
+**Windows または macOS のデスクトップ版 Obsidian 1.15.0 以降**が必要です。現在は **1.4.2**で、手動インストールに対応しています。コミュニティプラグイン一覧にはまだ掲載されていません。
 
 → [インストール、更新、別の端末への導入ガイド（英語）](docs/INSTALL.en.md)
 
@@ -90,7 +90,7 @@ Obsidian を開いたとき、最初に目に入るのが壁紙、カレンダ�
 
 ## 動作環境とインストール
 
-**1.4.1 プレビュー版**は **Windows・macOS のデスクトップ版 Obsidian 1.15.0 以降**が対象です。モバイル端末には対応していません。両 OS で同じプラグインファイルを使用でき、特定の端末に固定されたパスは含まれていません。
+**1.4.2**は **Windows・macOS のデスクトップ版 Obsidian 1.15.0 以降**が対象です。モバイル端末には対応していません。両 OS で同じプラグインファイルを使用でき、特定の端末に固定されたパスは含まれていません。
 
 現在は手動インストールに対応しており、Obsidian のコミュニティプラグイン一覧にはまだ申請していません。[インストールと更新の説明（英語）](docs/INSTALL.en.md)をご覧ください。
 
@@ -118,7 +118,7 @@ node --test work/workbench/*.test.js
 python work/package_public.py
 ```
 
-未バンドルのソースエントリではなく、ビルドで生成された `main.js` をインストールしてください。[貢献ガイド（英語）](CONTRIBUTING.md)もご覧ください。72 件の自動チェックに合格しています。また、ユーザーからは Windows と macOS の空のテスト保管庫で 1.4.1 の導入・利用が正常だったとの報告を受けています。Windows での報告には簡体字中国語・英語の初期設定とタスク管理が含まれます。[リリースチェックリスト（英語）](docs/RELEASE-CHECKLIST.md)では、自動チェック、ユーザー報告、個別には未確認の追加シナリオを区別しています。
+ビルド済みの main.js をインストールしてください。ローカルの自動チェック 79 件に合格しています。ユーザーから、Windows 版 1.4.2 の検索、タスク移動、完了後の復元、プロジェクトのアーカイブが正常で、Mac でも 1.4.0 から更新後に正常に使えたとの報告がありました。新版の新規導入に関する全項目の確認を意味するものではありません。確認範囲と未完了のコミュニティ審査は[リリースチェックリスト](docs/RELEASE-CHECKLIST.md)をご覧ください。
 
 ## 💖 開発を支援する
 

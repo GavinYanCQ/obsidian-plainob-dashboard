@@ -8,13 +8,13 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/status-preview-blue?style=flat-square" alt="试用版">
+  <img src="https://img.shields.io/badge/status-release-green?style=flat-square" alt="试用版">
   <img src="https://img.shields.io/badge/desktop-Windows%20%7C%20macOS-555?style=flat-square" alt="Windows 和 macOS 桌面端">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="MIT 许可证"></a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/GavinYanCQ/obsidian-plainob-dashboard/releases/download/1.4.1/PlainOB-1.4.1-installer.zip"><strong>⬇ 下载安装包 · 1.4.1 试用版</strong></a>
+  <a href="https://github.com/GavinYanCQ/obsidian-plainob-dashboard/releases/download/1.4.2/PlainOB-1.4.2-installer.zip"><strong>⬇ 下载安装包 · 1.4.2</strong></a>
   &nbsp;·&nbsp;
   <a href="CHANGELOG.md">查看更新记录</a>
 </p>
@@ -42,7 +42,7 @@
 2. **完成向导：**选择新建系统或对应已有目录，选择界面语言，预览后执行。
 3. **开始记录：**记录一条灵感、新建笔记，或勾选笔记的 task 属性，将任务卡片在待办、执行中和已完成之间流转。
 
-适用于 **Windows 和 macOS 桌面端，Obsidian 1.15.0+**。当前为 **1.4.1 试用版**，采用手动安装，尚未上架社区插件市场。
+适用于 **Windows 和 macOS 桌面端，Obsidian 1.15.0+**。当前为 **1.4.2**，采用手动安装，尚未上架社区插件市场。
 
 → [完整安装、升级与双端接入指南](docs/INSTALL.zh-CN.md)
 
@@ -90,7 +90,7 @@
 
 ## 兼容与安装
 
-当前为 **1.4.1 试用版**，适用于 **Windows、macOS 桌面端的 Obsidian 1.15.0 及以上版本**，暂不支持手机和平板。两端使用同一份插件文件，不含固定盘符或个人目录。
+当前为 **1.4.2**，适用于 **Windows、macOS 桌面端的 Obsidian 1.15.0 及以上版本**，暂不支持手机和平板。两端使用同一份插件文件，不含固定盘符或个人目录。
 
 目前采用手动安装，尚未提交 Obsidian 社区插件市场。详见[安装与升级说明](docs/INSTALL.zh-CN.md)。
 
@@ -118,7 +118,7 @@ node --test work/workbench/*.test.js
 python work/package_public.py
 ```
 
-安装构建后的 main.js。72 项自动检查通过，使用者也已反馈 1.4.1 在 Windows 和 macOS 空白测试库安装、使用正常，Windows 端包括中英文与任务管理测试。自动检查与使用者反馈的具体范围记录在[发布清单](docs/RELEASE-CHECKLIST.md)中；未逐项确认的扩展场景保留待核对状态。
+安装构建后的 main.js。79 项本地自动检查通过。使用者已反馈 Windows 端 1.4.2 搜索、任务拖动、完成后恢复与项目归档测试正常，Mac 端从 1.4.0 升级后使用正常。该反馈不代表新版本的所有首次安装情境都已逐项验收。证据与待完成的社区审核见[发布清单](docs/RELEASE-CHECKLIST.md)。
 
 ## 💖 赞助与支持
 

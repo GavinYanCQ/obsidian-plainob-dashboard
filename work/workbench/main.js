@@ -42,6 +42,7 @@ module.exports = class PlainOB extends Plugin {
     for(const timer of this.timers.values())clearTimeout(timer);this.timers.clear();
     for(const timer of this.newTimers.values())clearTimeout(timer);this.newTimers.clear();
     this.settings=next;this.model=Model.create(next);
+    this.ready=!this._unloaded&&next.setup?.completed!==false;
     this.routing.reset();this.known.clear();
     for(const file of this.app.vault.getMarkdownFiles())if(this.eligible(file))this.known.set(file,snapshot(this.fm(file)));
     this.refresh();
@@ -50,10 +51,11 @@ module.exports = class PlainOB extends Plugin {
     const data=await this.loadData();
     const legacy=!data&&Boolean(this.app.vault.getAbstractFileByPath('06_System/Configuration/归档分类清单.md'));
     this.settings=Config.load(data,legacy);this.model=Model.create(this.settings);
-    if(legacy){const cover=this.roots.attachments+'/Covers/default-note.svg';if(this.app.vault.getAbstractFileByPath(cover))this.settings.files.defaultCover=cover;await this.saveData(this.settings);}
-    if(!data&&!legacy)await this.saveData(this.settings);
+    if(!data)this.settings.setup={version:1,mode:legacy?'existing':'new',completed:false};
+    if(legacy){const cover=this.roots.attachments+'/Covers/default-note.svg';if(this.app.vault.getAbstractFileByPath(cover))this.settings.files.defaultCover=cover;}
+    if(!data)await this.saveData(this.settings);
     this._unloaded=false;
-    if(!data&&!legacy)this.app.workspace.onLayoutReady(()=>{this.setupWelcomeTimer=setTimeout(()=>{if(!this._unloaded)new SetupUI.Wizard(this).open();},800);});
+    if(this.settings.setup?.completed===false)this.app.workspace.onLayoutReady(()=>{if(this._unloaded)return;this.setupWelcomeTimer=setTimeout(()=>{if(!this._unloaded&&this.settings.setup?.completed===false)new SetupUI.Wizard(this).open();},800);});
     this.addSettingTab(new WorkbenchSettingsTab(this.app,this));
     this.addCommand({id:'setup-wizard',name:this.t('打开安装向导'),callback:()=>new SetupUI.Wizard(this).open()});
     this.addCommand({id:'export-profile',name:this.t('导出迁移配置'),callback:()=>new SetupUI.ProfileModal(this).open()});
@@ -107,13 +109,16 @@ module.exports = class PlainOB extends Plugin {
       const oldParent=this.eligible(file)?this.parent(file):null;
       this.known.delete(file); clearTimeout(this.timers.get(file)); this.timers.delete(file); this.refresh();
       clearTimeout(this.newTimers.get(file)); this.newTimers.delete(file);
-      if(oldParent)this.syncProjectStatus(oldParent).catch(e=>new Notice(this.t(e.message)));
+      if(this.ready&&!this.setupApplying&&oldParent)this.syncProjectStatus(oldParent).catch(e=>new Notice(this.t(e.message)));
     }));
     this.routing=new Routing.Controller(this);this.routing.start();
     this.app.workspace.onLayoutReady(() => {
+      if(this._unloaded)return;
       this.startTimer = setTimeout(() => {
+        if(this._unloaded)return;
         for (const file of this.app.vault.getMarkdownFiles()) if (this.eligible(file)) this.known.set(file, snapshot(this.fm(file)));
-        this.ready = true; this.refresh();
+        this.ready = this.settings.setup?.completed!==false; this.refresh();
+        if(!this.ready)return;
         // Reconcile existing live project summaries, without moving any folders or altering steps.
         for(const project of this.projects())this.syncProjectStatus(project).catch(e=>new Notice(this.t("项目进度更新未完成：")+e.message));
       }, 1000);
@@ -204,9 +209,10 @@ module.exports = class PlainOB extends Plugin {
     this.sortQueue=next;return next;
   }
   run(file, job) {
+    if(this._unloaded)return Promise.reject(Error(this.t('工作台已关闭，请重新启用插件')));
     if(this.setupApplying)return Promise.reject(Error(this.t('另一个安装向导正在执行')));
     const prior = this.queues.get(file) || Promise.resolve();
-    const next = prior.catch(() => {}).then(() => { if (!this.eligible(file) || this.app.vault.getAbstractFileByPath(file.path) !== file) throw new Error(this.t("笔记已移动或不存在")); return job(); });
+    const next = prior.catch(() => {}).then(() => { if(this._unloaded)throw Error(this.t('工作台已关闭，请重新启用插件'));if (!this.eligible(file) || this.app.vault.getAbstractFileByPath(file.path) !== file) throw new Error(this.t("笔记已移动或不存在")); return job(); });
     this.queues.set(file, next);
     next.finally(() => { if (this.queues.get(file) === next) this.queues.delete(file); }).catch(() => {});
     return next;
@@ -324,7 +330,9 @@ module.exports = class PlainOB extends Plugin {
     });
   }
   async readFrontmatter(file) {
+    if(this._unloaded)throw Error(this.t('工作台已关闭，请重新启用插件'));
     const text = await this.app.vault.read(file);
+    if(this._unloaded)throw Error(this.t('工作台已关闭，请重新启用插件'));
     const match = text.match(/^\uFEFF?---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/);
     return match ? parseYaml(match[1]) || {} : {};
   }
@@ -378,8 +386,10 @@ module.exports = class PlainOB extends Plugin {
   }
   openFile(file) { return this.app.workspace.getLeaf('tab').openFile(file); }
   refresh() {
+    if(this._unloaded)return;
     clearTimeout(this.refreshTimer);
     this.refreshTimer = setTimeout(() => {
+      if(this._unloaded)return;
       if(this.sorting)return;
       for (const popover of this.popovers) popover.render();
       for (const view of this.views) { if (!view.popover) view.render(true); else view.needsRefresh = true; }
@@ -423,6 +433,7 @@ module.exports = class PlainOB extends Plugin {
     this.ready = false; clearTimeout(this.startTimer); clearTimeout(this.refreshTimer);
     for (const timer of this.timers.values()) clearTimeout(timer);
     for (const timer of this.newTimers.values()) clearTimeout(timer);
+    for(const view of this.views){clearTimeout(view.filterTimer);view.cancelHover?.();}
     for (const popover of [...this.popovers]) popover.close();
   }
 };
@@ -440,10 +451,11 @@ class WorkbenchView extends ItemView {
   getState() { return this.state; }
   async setState(state, result) { this.state = { mode: 'home', ...state }; this.render(); this.contentEl.scrollTop = 0; await super.setState(state, result); }
   async onOpen() { this.plugin.views.add(this); this.contentEl.addClass('gwb-view'); this.render(); }
-  async onClose() { this.cancelHover?.(); this.popover?.close(); this.plugin.views.delete(this); }
+  async onClose() { clearTimeout(this.filterTimer);this.cancelHover?.(); this.popover?.close(); this.plugin.views.delete(this); }
   navigate(mode, folder = '', focus = '') { this.popover?.close(); this.state = { ...this.state, mode, folder, focus }; this.query = ''; this.month = ''; this.render(); this.contentEl.scrollTop = 0; this.app.workspace.requestSaveLayout(); }
   render(preserve = false) {
-    if (!this.contentEl) return;
+    if (!this.contentEl||this.plugin._unloaded) return;
+    clearTimeout(this.filterTimer);
     this.cancelHover?.();
     const scrollTop = this.contentEl.scrollTop;
     const scrolls = {};
@@ -491,7 +503,7 @@ class WorkbenchView extends ItemView {
     button(heading, this.t("＋ 新建任务"), () => new NewNoteModal(this.plugin, { task: true }).open(), 'mod-cta');
     const toolbar = add(root, 'div', 'gwb-toolbar');
     const input = add(toolbar, 'input', 'gwb-task-search'); input.placeholder = this.t("筛选任务或项目…"); input.value = this.query; input.type = 'search'; input.setAttribute('aria-label',this.t("筛选任务"));
-    let debounce; input.addEventListener('input', () => { this.query = input.value; clearTimeout(debounce); debounce = setTimeout(() => this.renderBoardOnly(root), 180); });
+    input.addEventListener('input', () => { this.query = input.value; clearTimeout(this.filterTimer); this.filterTimer = setTimeout(() => this.renderBoardOnly(root), 180); });
     const label = add(toolbar, 'label', 'gwb-filter-check'); const cb = add(label, 'input'); cb.type = 'checkbox'; cb.checked = this.showProjects; label.appendText(this.t("显示项目总览")); cb.addEventListener('change', () => { this.showProjects = cb.checked; this.renderBoardOnly(root); });
     const month = add(toolbar, 'select'); month.setAttribute('aria-label',this.t("筛选 Done 完成月份"));
     add(month, 'option', '', this.t("Done · 全部月份")).value = '';
@@ -726,9 +738,11 @@ class NewNoteModal extends Modal {
     let title='', reference=false; const input=add(this.contentEl,'input','gwb-name-input'); input.placeholder=o.idea?this.t('灵感标题'):o.makeProject?this.t("项目名称"):o.project?this.t("例如：Step 1 需求梳理"):this.t("笔记名称"); input.setAttribute('aria-label',o.idea?this.t('灵感标题'):o.makeProject?this.t("项目名称"):this.t("笔记名称")); input.addEventListener('input',()=>title=input.value.trim());
     if(!o.makeProject&&!o.project&&!o.idea)new Setting(this.contentEl).setName(this.t("资料笔记")).setDesc(this.t("适合文章、视频、书籍、播客；观点与方法保存在同一篇笔记。")).addToggle(t=>t.onChange(v=>reference=v));
     const error=add(this.contentEl,'p','gwb-error');
+    let creating=false;
     const create=async()=>{
+      if(creating||this.plugin._unloaded)return;
       if(!title||/[<>:"/\\|?*\x00-\x1f]/.test(title)||/[. ]$/.test(title)||/^(CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])(?:\.|$)/i.test(title)){error.setText(this.t("请输入有效名称，不使用路径或特殊字符。"));return;}
-      submit.disabled=true;
+      creating=true;submit.disabled=true;
       try{
         const fm=this.model.defaults(title); let folder=this.roots.inbox, basename=title;
         if(o.idea){
@@ -751,11 +765,12 @@ class NewNoteModal extends Modal {
         if(!o.makeProject&&!o.project)await this.plugin.applyTemplate(file,o.idea?'灵感记录模板':reference?'资料笔记模板':'知识笔记模板');
         if(o.column==='done'&&!o.makeProject&&!o.project)await this.plugin.archiveStandalone(file);
         this.plugin.refresh();
-      }catch(e){error.setText(this.t(e.message));submit.disabled=false;}
+      }catch(e){creating=false;error.setText(this.t(e.message));submit.disabled=false;}
     };
     const footer=add(this.contentEl,'div','gwb-modal-footer');button(footer,this.t("取消"),()=>this.close());const submit=button(footer,this.t("创建"),create,'mod-cta');
-    input.addEventListener('keydown',e=>{if(e.key==='Enter')create();});setTimeout(()=>input.focus(),50);
+    input.addEventListener('keydown',e=>{if(e.key==='Enter')create();});this.focusTimer=setTimeout(()=>{if(!this.plugin._unloaded)input.focus();},50);
   }
+  onClose(){clearTimeout(this.focusTimer);}
 }
 class ProjectPicker extends SuggestModal {
   get model(){return this.plugin.model;}
@@ -776,14 +791,15 @@ class SearchNotesModal extends SuggestModal {
 
   constructor(plugin){super(plugin.app);this.plugin=plugin;this.searchId=0;this.setPlaceholder(this.t("搜索关键词，查看命中句子并跳转…"));this.modalEl.addClass('gwb-search-modal');this.setInstructions([{command:'↑ ↓',purpose:this.t("选择命中句子")},{command:'↵',purpose:this.t("跳转到原文")},{command:'Esc',purpose:this.t("关闭")},{command:this.t("结果"),purpose:this.t("每篇最多 8 句，共 80 处")}]);}
   async getSuggestions(query){
-    const id=++this.searchId,needle=query.trim(),files=this.app.vault.getMarkdownFiles().filter(f=>this.plugin.eligible(f));this.latestResults=[];
+    const id=++this.searchId,needle=query.trim(),files=this.app.vault.getMarkdownFiles();this.latestResults=[];
+    if(this.plugin._unloaded)return this.latestResults;
     if(!needle)return this.latestResults=files.sort((a,b)=>b.stat.mtime-a.stat.mtime).slice(0,20).map(file=>({file,query:'',kind:'recent'}));
     files.sort((a,b)=>Number(Search.matches(b.basename,needle).length>0)-Number(Search.matches(a.basename,needle).length>0)||b.stat.mtime-a.stat.mtime);
     const hits=[];
     for(const file of files){
-      if(id!==this.searchId)return this.latestResults;if(hits.length>=80)break;
+      if(this.plugin._unloaded||id!==this.searchId)return this.latestResults;if(hits.length>=80)break;
       try{
-        const text=await this.app.vault.cachedRead(file);if(id!==this.searchId)return this.latestResults;
+        const text=await this.app.vault.cachedRead(file);if(this.plugin._unloaded||id!==this.searchId)return this.latestResults;
         const passages=Search.searchText(text,needle,Math.min(8,80-hits.length));
         for(const passage of passages)hits.push({file,query:needle,kind:'passage',...passage});
         if(!passages.length&&Search.matches(file.basename,needle).length)hits.push({file,query:needle,kind:'title'});
@@ -791,6 +807,7 @@ class SearchNotesModal extends SuggestModal {
     }
     this.latestResults=hits;return hits;
   }
+  onClose(){this.searchId++;this.latestResults=[];}
   highlight(el,text,query){
     let cursor=0;for(const match of Search.matches(text,query)){el.appendText(text.slice(cursor,match.start));add(el,'mark','gwb-search-highlight',text.slice(match.start,match.end));cursor=match.end;}el.appendText(text.slice(cursor));
   }
@@ -803,9 +820,11 @@ class SearchNotesModal extends SuggestModal {
   }
   async onChooseSuggestion(hit){
     try{
+      if(this.plugin._unloaded)return;
       if(this.app.vault.getAbstractFileByPath(hit.file.path)!==hit.file){new Notice(this.t("这篇笔记已不存在，请重新搜索"));return;}
       if(hit.kind!=='passage'){await this.plugin.openFile(hit.file);return;}
       const text=await this.app.vault.read(hit.file),match=Search.relocate(text,hit,hit.query);
+      if(this.plugin._unloaded)return;
       if(!match){await this.plugin.openFile(hit.file);new Notice(this.t("原文已发生变化，请重新搜索以定位最新位置"));return;}
       const from=Search.position(text,match.start),to=Search.position(text,match.end);
       const leaf=this.app.workspace.getLeaf('tab');
@@ -840,7 +859,7 @@ class WorkbenchSettingsTab extends PluginSettingTab {
     new Setting(el).setName(t('首页称呼')).addText(x=>x.setValue(draft.displayName).onChange(v=>draft.displayName=v));
     new Setting(el).setName(t('内置分类移动')).setDesc(t('仅在 Inbox 分类发生变化时移动，旧分类插件运行时自动暂停')).addToggle(x=>x.setValue(draft.routingEnabled).onChange(v=>draft.routingEnabled=v));
     if(p.routingBlocked())el.createEl('p',{text:t('已检测到旧分类插件，本插件不会重复移动笔记')});
-    el.createEl('p',{text:t('目录设置只改变工作台读取的位置，不移动已有笔记。完整初始化与迁移向导将在下一阶段提供。')});
+    el.createEl('p',{text:t('目录设置只改变工作台读取的位置，不移动已有笔记。请通过安装向导预览并确认配置。')});
     const roles={inbox:this.t("收集箱"),projects:this.t("项目"),areas:this.t("领域"),resources:this.t("资源"),archive:this.t("归档"),templates:this.t("模板"),system:this.t("系统"),attachments:this.t("附件")};
     for(const [role,label]of Object.entries(roles))new Setting(el).setName(t(label)).addText(x=>x.setValue(draft.roots[role]).onChange(v=>draft.roots[role]=v));
     const files={categoryNote:this.t("分类清单路径"),noteTemplate:this.t("知识模板路径"),referenceTemplate:this.t("资料模板路径"),ideaTemplate:this.t('灵感模板路径'),guide:this.t("使用说明路径"),defaultCover:this.t("默认封面路径（可留空）")};

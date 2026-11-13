@@ -20,7 +20,7 @@ When upgrading, preserve your `data.json`, backups, notes, templates and lists. 
 
 72 automated checks pass. A user has reported successful installation and task use on Windows and macOS. Extended acceptance details and current limitations are in `docs/RELEASE-CHECKLIST.md`. Mobile, bulk legacy-note migration and automatic folder-rename migration are not included. Sync and AI services are optional, separately configured tools.
 
-MIT licensed. Author: GavinCQ. This text is a local release draft until the maintainer publishes it.
+MIT licensed. Author: GavinCQ. Published on 2026-11-13: [1.4.1 preview release](https://github.com/GavinYanCQ/obsidian-plainob-dashboard/releases/tag/1.4.1). These notes describe that release; later candidate checks are recorded separately.
 
 ---
 

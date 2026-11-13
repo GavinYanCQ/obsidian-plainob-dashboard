@@ -14,7 +14,7 @@ class Setting{constructor(el){this.el=el;this.record=el.createEl('div');}setName
 function environment({settings,locale='en',legacyRouter=false,legacy=false}={}){
   const entries=new Map(),handlers={},commands=[],notices=[],writes=[],callbacks=[],modals=[];
   const addFolder=p=>{if(entries.has(p))return entries.get(p);const f=new Folder(p);entries.set(p,f);const parent=p.includes('/')?addFolder(p.slice(0,p.lastIndexOf('/'))):null;if(parent)parent.children.push(f);return f;};
-  const addFile=(p,fm={},body)=>{const f=new File(p,fm,body);f.parent=addFolder(p.slice(0,p.lastIndexOf('/')));f.parent.children.push(f);entries.set(p,f);return f;};
+  const addFile=(p,fm={},body)=>{const f=new File(p,fm,body);f.parent=addFolder(p.includes('/')?p.slice(0,p.lastIndexOf('/')):'');f.parent.children.push(f);entries.set(p,f);return f;};
   const on=(n,f)=>{(handlers[n]??=[]).push(f);return ()=>{};};
   const app={plugins:{getPlugin:id=>id==='gavin-category-router'&&legacyRouter?{}:null},workspace:{onLayoutReady:f=>callbacks.push(f),getActiveFile:()=>null,requestSaveLayout(){},getLeavesOfType:()=>[],getLeaf:()=>({openFile:async()=>{}}),openLinkText:async()=>{}},metadataCache:{on,getFileCache:f=>({frontmatter:f.fm}),getFirstLinkpathDest:link=>entries.get(link.replace(/^\[\[|\]\]$/g,'').replace(/\.md$/,'')+'.md')||[...entries.values()].find(f=>f instanceof File&&f.basename===link)},vault:{on,getName:()=>"User's Vault",getAbstractFileByPath:p=>entries.get(p),getMarkdownFiles:()=>[...entries.values()].filter(f=>f instanceof File),getFiles:()=>[...entries.values()].filter(f=>f instanceof File),read:async f=>'---\n'+JSON.stringify(f.fm)+'\n---\n'+f.body,cachedRead:async f=>'---\n'+JSON.stringify(f.fm)+'\n---\n'+f.body,getResourcePath:f=>'resource:'+f.path,createFolder:async p=>addFolder(p)}};
   app.vault.configDir='.obsidian';
@@ -46,6 +46,81 @@ function environment({settings,locale='en',legacyRouter=false,legacy=false}={}){
   return {p,classes:PluginClass._test,entries,addFolder,addFile,handlers,commands,notices,writes,callbacks,modals};
 }
 async function boot(options){const e=environment(options);await e.p.onload();e.p.refresh=()=>{};e.p.ready=true;e.p.routing.ready=true;return e;}
+
+test('unconfirmed setup survives reload and never starts automatic note edits or moves',async()=>{
+  let saved;
+  for(let launch=0;launch<2;launch++){
+    const e=environment({settings:saved});
+    const parent=e.addFile('01_Projects/A/A Overview.md',{task:true,task_status:'backlog',workbench_project:true});
+    e.addFile('01_Projects/A/Step 1.md',{task:true,task_status:'active',project:'[[01_Projects/A/A Overview]]'});
+    const note=e.addFile('00_Inbox/Existing.md',{category:''});e.addFolder('03_Resources/AI');
+    await e.p.onload();
+    try{
+      for(const callback of e.callbacks)callback();
+      await new Promise(r=>setTimeout(r,1100));
+      assert.equal(e.p.ready,false);assert.equal(e.p.routing.active,false);
+      const step=e.entries.get('01_Projects/A/Step 1.md');for(const callback of e.handlers.delete||[])callback(step);
+      note.fm.category='03_Resources/AI';for(const callback of e.handlers.changed||[])callback(note);
+      const fresh=e.addFile('00_Inbox/Fresh.md',{});for(const callback of e.handlers.create||[])callback(fresh);
+      await new Promise(r=>setTimeout(r,500));
+      assert.equal(e.writes.length,0);assert.equal(note.path,'00_Inbox/Existing.md');
+      assert.equal(parent.fm.task_status,'backlog');assert.deepEqual(fresh.fm,{});
+      saved=JSON.parse(JSON.stringify(e.p.saved||e.p.settings));assert.equal(saved.setup.completed,false);
+    }finally{e.p.onunload();}
+  }
+});
+test('confirmed setup activates automatic updates while old saved installations remain compatible',async()=>{
+  for(const setup of [undefined,{version:1,mode:'existing',completed:true}]){
+    const settings=C.load();if(setup)settings.setup=setup;
+    const e=environment({settings});const parent=e.addFile('01_Projects/A/A Overview.md',{task:true,task_status:'backlog',workbench_project:true});
+    e.addFile('01_Projects/A/Step 1.md',{task:true,task_status:'active',project:'[[01_Projects/A/A Overview]]'});
+    await e.p.onload();try{for(const cb of e.callbacks)cb();await new Promise(r=>setTimeout(r,1100));assert.equal(e.p.ready,true);assert.equal(parent.fm.task_status,'active');}finally{e.p.onunload();}
+  }
+  const e=await boot();try{e.p.ready=false;assert.equal(e.p.routing.active,false);await e.p.updateSettings({...e.p.settings,setup:{version:1,mode:'new',completed:true}});assert.equal(e.p.ready,true);assert.equal(e.p.routing.active,true);}finally{e.p.onunload();}
+});
+test('late layout callbacks and queued work cannot restart automation after unloading',async()=>{
+  const e=await boot();const file=e.addFile('00_Inbox/A.md',{task:true});let release;
+  const gate=new Promise(r=>release=r),first=e.p.run(file,()=>gate);
+  const second=e.p.run(file,()=>e.p.app.fileManager.processFrontMatter(file,fm=>fm.task_status='done'));
+  const rejected=assert.rejects(second,/closed|关闭/);
+  await new Promise(setImmediate);e.p.onunload();for(const cb of e.callbacks)cb();release();await first;await rejected;
+  await new Promise(r=>setTimeout(r,1100));assert.equal(e.p.ready,false);assert.equal(e.p.routing.ready,false);assert.equal(e.writes.length,0);
+});
+test('an in-flight frontmatter read is cancelled when the plugin unloads',async()=>{
+  const e=await boot();const file=e.addFile('00_Inbox/A.md',{task:true});const read=e.p.app.vault.read;
+  e.p.app.vault.read=async f=>{const text=await read(f);e.p.onunload();return text;};
+  await assert.rejects(e.p.readFrontmatter(file),/closed|关闭/);assert.equal(e.writes.length,0);
+});
+test('repeated Enter during note creation starts only one vault write',async()=>{
+  const e=await boot();let release;const gate=new Promise(r=>release=r),original=e.p.app.vault.create;let creates=0;
+  e.addFolder('00_Inbox');e.p.applyTemplate=async()=>{};
+  e.p.app.vault.create=async(...args)=>{creates++;await gate;return original(...args);};
+  try{const dialog=new e.classes.NewNoteModal(e.p);dialog.onOpen();const input=dialog.contentEl.all().find(x=>x.tag==='input');input.value='One note';input.events.input();input.events.keydown({key:'Enter'});input.events.keydown({key:'Enter'});await new Promise(setImmediate);assert.equal(creates,1);release();await new Promise(setImmediate);assert(e.entries.has('00_Inbox/One note.md'));assert.equal(creates,1);}finally{release();e.p.onunload();}
+});
+
+test('global search finds titles and passages outside managed roots without editing notes',async()=>{
+  const e=await boot();try{
+    const loose=e.addFile('Old notes/Phone.md',{},'Choose a phone with a long battery life.');
+    const root=e.addFile('Root note.md',{},'Another old note.');
+    assert.equal(e.p.eligible(loose),false);assert.equal(e.p.eligible(root),false);
+    const search=new e.classes.SearchNotesModal(e.p);
+    const bodyHits=await search.getSuggestions('battery');assert.equal(bodyHits.length,1);assert.equal(bodyHits[0].file,loose);assert.equal(bodyHits[0].kind,'passage');
+    const titleHits=await search.getSuggestions('Root note');assert.equal(titleHits.length,1);assert.equal(titleHits[0].file,root);assert.equal(titleHits[0].kind,'title');
+    assert.equal((await search.getSuggestions('')).length,2);assert.equal(e.writes.length,0);
+  }finally{e.p.onunload();}
+});
+
+test('closing search or unloading the plugin cancels in-flight search results',async()=>{
+  for(const unload of [false,true]){
+    const e=await boot();try{
+      e.addFile('Old notes/A.md',{},'needle');let release;const gate=new Promise(r=>release=r),read=e.p.app.vault.cachedRead;
+      e.p.app.vault.cachedRead=async file=>{await gate;return read(file);};
+      const search=new e.classes.SearchNotesModal(e.p),pending=search.getSuggestions('needle');
+      if(unload)e.p.onunload();else search.onClose();release();
+      assert.equal((await pending).length,0);assert.equal(search.latestResults.length,0);assert.equal(e.writes.length,0);
+    }finally{e.p.onunload();}
+  }
+});
 
 test('public wizard installs all UI/folder combinations without optional plugins or personal starter content',async()=>{
   const S=require('./setup');

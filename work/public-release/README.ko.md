@@ -8,13 +8,13 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/status-preview-blue?style=flat-square" alt="미리 보기 버전">
+  <img src="https://img.shields.io/badge/status-release-green?style=flat-square" alt="미리 보기 버전">
   <img src="https://img.shields.io/badge/desktop-Windows%20%7C%20macOS-555?style=flat-square" alt="Windows 및 macOS 데스크톱">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="MIT 라이선스"></a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/GavinYanCQ/obsidian-plainob-dashboard/releases/download/1.4.1/PlainOB-1.4.1-installer.zip"><strong>⬇ 설치 파일 다운로드 · 1.4.1 미리 보기</strong></a>
+  <a href="https://github.com/GavinYanCQ/obsidian-plainob-dashboard/releases/download/1.4.2/PlainOB-1.4.2-installer.zip"><strong>⬇ 설치 파일 다운로드 · 1.4.2</strong></a>
   &nbsp;·&nbsp;
   <a href="CHANGELOG.md">변경 기록 보기</a>
 </p>
@@ -42,7 +42,7 @@ Obsidian을 열었을 때 배경화면, 달력, 시계, 뽀모도로 타이머�
 2. **초기 설정:** 새 구성을 만들거나 기존 폴더에 연결합니다. 인터페이스 언어를 선택하고, 변경 내용을 미리 확인한 뒤 적용합니다.
 3. **사용 시작:** 아이디어를 기록하거나 노트를 만들고, 노트의 task 속성을 켜서 할 일로 관리합니다. 카드를 Backlog(대기), Active(진행 중), Done(완료) 사이에서 이동할 수 있습니다.
 
-**Windows 또는 macOS 데스크톱용 Obsidian 1.15.0 이상**이 필요합니다. 현재 버전은 **1.4.1 미리 보기 버전**으로, 수동 설치를 지원합니다. 커뮤니티 플러그인 목록에는 아직 등록되지 않았습니다.
+**Windows 또는 macOS 데스크톱용 Obsidian 1.15.0 이상**이 필요합니다. 현재 버전은 **1.4.2**으로, 수동 설치를 지원합니다. 커뮤니티 플러그인 목록에는 아직 등록되지 않았습니다.
 
 → [설치, 업데이트, 두 번째 기기 설정 안내(영어)](docs/INSTALL.en.md)
 
@@ -90,7 +90,7 @@ Obsidian을 열었을 때 배경화면, 달력, 시계, 뽀모도로 타이머�
 
 ## 호환성과 설치
 
-**1.4.1 미리 보기 버전**은 **Windows 및 macOS 데스크톱용 Obsidian 1.15.0 이상**을 대상으로 합니다. 모바일 기기는 지원하지 않습니다. 두 운영체제에서 같은 플러그인 파일을 사용하며, 특정 컴퓨터에 고정된 경로는 포함하지 않습니다.
+**1.4.2**은 **Windows 및 macOS 데스크톱용 Obsidian 1.15.0 이상**을 대상으로 합니다. 모바일 기기는 지원하지 않습니다. 두 운영체제에서 같은 플러그인 파일을 사용하며, 특정 컴퓨터에 고정된 경로는 포함하지 않습니다.
 
 현재 수동 설치를 지원하며, Obsidian 커뮤니티 플러그인 목록에는 아직 제출하지 않았습니다. [설치와 업데이트 안내(영어)](docs/INSTALL.en.md)를 참고하세요.
 
@@ -118,7 +118,7 @@ node --test work/workbench/*.test.js
 python work/package_public.py
 ```
 
-번들로 묶지 않은 소스 진입 파일 대신, 빌드로 생성한 `main.js`를 설치하세요. [기여 안내(영어)](CONTRIBUTING.md)를 참고하세요. 자동 검사 72개를 통과했으며, 사용자는 Windows와 macOS의 빈 테스트 보관함에서 1.4.1 설치와 사용이 정상적이었다고 보고했습니다. Windows 보고에는 중국어 간체·영어 설정 및 작업 관리가 포함됩니다. [릴리스 점검표(영어)](docs/RELEASE-CHECKLIST.md)는 자동 검사, 사용자 보고, 아직 개별 확인하지 않은 추가 시나리오를 구분합니다.
+빌드된 main.js를 설치하세요. 로컬 자동 검사 79개를 통과했습니다. 사용자는 Windows의 1.4.2 검색, 작업 이동, 완료 후 복원, 프로젝트 보관 테스트가 정상이며 Mac에서도 1.4.0에서 업그레이드한 후 정상적으로 사용할 수 있다고 보고했습니다. 새 버전의 모든 신규 설치 상황을 개별 검증했다는 뜻은 아닙니다. 검증 범위와 남은 커뮤니티 심사는 [릴리스 점검표](docs/RELEASE-CHECKLIST.md)를 참고하세요.
 
 ## 💖 후원과 지원
 

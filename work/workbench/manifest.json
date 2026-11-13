@@ -1,9 +1,11 @@
 {
   "id": "plainob",
   "name": "PlainOB",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "minAppVersion": "1.15.0",
-  "description": "Simple Notes & Tasks.",
+  "description": "Search notes, browse knowledge folders, and manage tasks and project steps.",
   "author": "GavinCQ",
+  "authorUrl": "https://github.com/GavinYanCQ",
+  "fundingUrl": "https://ko-fi.com/gavinyancq",
   "isDesktopOnly": true
 }

@@ -284,5 +284,7 @@
   "[PlainOB] 属性更新": "[PlainOB] Property update",
   "[PlainOB] 搜索定位": "[PlainOB] Search navigation",
   "在另一台 Windows 或 macOS 设备接入同一套工作台时，可导入迁移配置，保留相同目录与任务状态规则。": "When connecting the same workbench on another Windows or macOS device, import a migration profile to keep matching folders and task status rules.",
-  "同步方式由你自行选择；工作台可独立使用，不配置同步服务。": "Choose your own sync method. The workbench works independently and does not configure a sync service."
+  "同步方式由你自行选择；工作台可独立使用，不配置同步服务。": "Choose your own sync method. The workbench works independently and does not configure a sync service.",
+  "工作台已关闭，请重新启用插件": "The workbench is closed. Enable the plugin again.",
+  "目录设置只改变工作台读取的位置，不移动已有笔记。请通过安装向导预览并确认配置。": "Folder settings change where the workbench reads notes; they do not move existing notes. Use the setup wizard to preview and apply the configuration."
 }

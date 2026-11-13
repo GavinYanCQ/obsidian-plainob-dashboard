@@ -3,7 +3,7 @@ const {TFile,TFolder,Notice}=require('obsidian');
 const Config=require('./config');
 class Controller {
   constructor(plugin){this.plugin=plugin;this.timers=new Map();this.last=new Map();this.moving=new Set();this.failures=new Map();this.ready=false;}
-  get active(){return !this.plugin.setupApplying&&this.plugin.settings.routingEnabled&&!this.plugin.routingBlocked();}
+  get active(){return !this.plugin._unloaded&&this.plugin.ready&&!this.plugin.setupApplying&&this.plugin.settings.routingEnabled&&!this.plugin.routingBlocked();}
   inInbox(file){return file instanceof TFile&&file.extension==='md'&&this.plugin.inRoot(file,'inbox');}
   token(file){const value=this.plugin.fm(file).category;return value==null?'':typeof value==='string'?value.trim():JSON.stringify(value);}
   reset(){for(const timer of this.timers.values())clearTimeout(timer);this.timers.clear();this.last.clear();this.failures.clear();for(const file of this.plugin.app.vault.getMarkdownFiles())if(this.inInbox(file))this.last.set(file,this.token(file));}
@@ -11,7 +11,7 @@ class Controller {
     const p=this.plugin;
     p.addCommand({id:'route-current-note',name:p.t('归档当前 Inbox 笔记'),checkCallback:checking=>{const file=p.app.workspace.getActiveFile();if(!this.inInbox(file))return false;if(!checking)this.route(file,true).catch(e=>this.notify(file,e.message));return true;}});
     p.addCommand({id:'open-category-list',name:p.t('打开归档分类清单'),callback:()=>p.app.workspace.openLinkText(p.settings.files.categoryNote,'',false)});
-    p.app.workspace.onLayoutReady(()=>{this.startTimer=setTimeout(()=>{this.reset();this.ready=true;},1000);});
+    p.app.workspace.onLayoutReady(()=>{if(p._unloaded)return;this.startTimer=setTimeout(()=>{if(p._unloaded)return;this.reset();this.ready=true;},1000);});
     p.registerEvent(p.app.vault.on('create',file=>{if(this.ready&&this.inInbox(file))this.last.set(file,'');}));
     p.registerEvent(p.app.metadataCache.on('changed',file=>{
       if(!this.ready||!this.inInbox(file))return;

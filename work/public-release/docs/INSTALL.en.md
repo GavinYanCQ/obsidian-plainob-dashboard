@@ -36,7 +36,9 @@ No specific sync service is required. PlainOB does not connect to sync servers, 
 
 Save edits and disable PlainOB. Replace only `main.js`, `manifest.json` and `styles.css`, then enable it again. Keep your own `data.json` and `setup-backups`. Never replace them with another user's settings. Existing settings remain in use; do not rerun new-system setup to upgrade. Back up before downgrading: older versions may reject newer settings formats.
 
-Manual replacement is the current method. Once the repository is published, users can optionally add it to [BRAT](https://tfthacker.com/BRAT) and check for updates; BRAT downloads the update and reloads the plugin. After community directory listing, use Obsidian Settings → Community plugins → Check for updates. Community plugins do not update automatically through Obsidian.
+Store full plugin-folder backups outside the `plugins` directory, for example in a separate backup location outside the vault. A copy such as `plainob_backup` containing `manifest.json` inside `plugins` can be recognized as another plugin. Keep the three runtime files directly in the active `plainob` folder. On Mac, use `Command + Q` to fully quit before reopening and checking the version.
+
+Manual replacement is the current method. Users can optionally add `GavinYanCQ/obsidian-plainob-dashboard` to [BRAT](https://tfthacker.com/BRAT) and check for updates; BRAT downloads the update and reloads the plugin. After community directory listing, use Obsidian Settings → Community plugins → Check for updates. Community plugins do not update automatically through Obsidian.
 
 Update and verify the plugin version separately in each Windows/macOS vault. Note synchronization does not imply plugin code was upgraded. Existing templates, category lists and AI rules are user files and are kept; a code update does not overwrite them with new defaults. Any new release requiring changes to these files must explain them separately.
 

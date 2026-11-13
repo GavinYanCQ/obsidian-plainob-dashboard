@@ -1,12 +1,14 @@
 # PlainOB — Development source
 
-A desktop Obsidian workbench for Windows and macOS. The public bilingual README, installation guide, privacy statement, MIT license and release checklist are maintained in [public-release](../public-release/README.md). The manifest is the source of the current version and minimum Obsidian version.
+A desktop Obsidian workbench for Windows and macOS. The public README in five languages, installation guides, privacy statement, MIT license and release checklist are maintained in [public-release](../public-release/README.md). The manifest is the source of the current version and minimum Obsidian version.
 
 ## Installation
 
 Place the plainob folder containing main.js, manifest.json and styles.css in your vault configuration folder's plugins directory. Enable it in Obsidian, then run Open setup wizard or use its settings page. First-time activation in a new vault opens the wizard without applying changes.
 
 The wizard offers Create a new system, Connect an existing vault, and Connect an existing workbench. Preview changes before applying. Existing notes are not moved or rewritten in bulk; existing templates and lists are kept. Interrupted runs can be resumed after checking for edits. Backups stay in the plugin's local setup-backups folder.
+
+On a fresh installation, automatic task updates and category routing stay paused until setup is confirmed. A saved installation from an earlier release without a setup marker remains active for compatibility. Global search reads every Markdown note in the vault, including notes outside the mapped workbench folders; task automation still uses only its configured folders.
 
 Export migration profile copies directory, language, greeting and task rules without credentials or note contents. Import it on the other device. Metadata Menu is optional; automatic preset configuration is verified only with 0.8.12 and requires that plugin to be disabled when changes are needed. Claudian rules are optional; AI tools and accounts are configured separately. No sync service is required or configured by this plugin.
 

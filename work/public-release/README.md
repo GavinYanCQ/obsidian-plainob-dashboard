@@ -8,13 +8,13 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/status-preview-blue?style=flat-square" alt="Preview release">
+  <img src="https://img.shields.io/badge/status-release-green?style=flat-square" alt="Release">
   <img src="https://img.shields.io/badge/desktop-Windows%20%7C%20macOS-555?style=flat-square" alt="Windows and macOS desktop">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="MIT license"></a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/GavinYanCQ/obsidian-plainob-dashboard/releases/download/1.4.1/PlainOB-1.4.1-installer.zip"><strong>⬇ Download installer · 1.4.1 Preview</strong></a>
+  <a href="https://github.com/GavinYanCQ/obsidian-plainob-dashboard/releases/download/1.4.2/PlainOB-1.4.2-installer.zip"><strong>⬇ Download installer · 1.4.2</strong></a>
   &nbsp;·&nbsp;
   <a href="CHANGELOG.md">View changelog</a>
 </p>
@@ -42,7 +42,7 @@ When I open Obsidian, I don't want the first thing I see to be a screen full of 
 2. **Set up:** choose a new system or connect your existing folders. Choose your interface language, review the planned changes, then apply.
 3. **Start using it:** capture an idea, create a note or mark a note as a task. Move task cards between Backlog, Active and Done.
 
-Requires **Obsidian 1.15.0+ on Windows or macOS desktop**. Current version: **1.4.1 preview**, installed manually. Community directory listing is pending.
+Requires **Obsidian 1.15.0+ on Windows or macOS desktop**. Current version: **1.4.2**, installed manually. Community directory listing is pending.
 
 → [Full installation, upgrades and a second device](docs/INSTALL.en.md)
 
@@ -90,7 +90,7 @@ These captures show a fictional demo vault in the real Obsidian desktop app, wit
 
 ## Compatibility and installation
 
-Version **1.4.1 preview** targets **Windows and macOS desktop**, with **Obsidian 1.15.0 or later**. Mobile is not supported. The same plugin files run on both desktop systems; no machine-specific paths are included.
+Version **1.4.2** targets **Windows and macOS desktop**, with **Obsidian 1.15.0 or later**. Mobile is not supported. The same plugin files run on both desktop systems; no machine-specific paths are included.
 
 Manual installation is currently supported; this plugin has not been submitted to the Obsidian community directory. See [installation and upgrades](docs/INSTALL.en.md).
 
@@ -118,7 +118,7 @@ node --test work/workbench/*.test.js
 python work/package_public.py
 ```
 
-Install the generated `main.js`, never the unbundled source entry. See [contributing](CONTRIBUTING.md). All 72 automated checks pass. A user has also reported successful 1.4.1 installation and use in empty Windows and macOS test vaults; the Windows report included Chinese/English setup and Task Management. The [release checklist](docs/RELEASE-CHECKLIST.md) distinguishes automated checks, user reports and additional scenarios that have not been individually confirmed.
+Install the generated `main.js`, never the unbundled source entry. See [contributing](CONTRIBUTING.md). All 79 local automated checks pass. The user reported successful 1.4.2 testing on Windows and successful upgrade/use on macOS; the Mac upgrade was from 1.4.0. These reports do not replace individual fresh-install checks. See the [release checklist](docs/RELEASE-CHECKLIST.md) for evidence and remaining community review.
 
 ## 💖 Sponsorship & Support
 

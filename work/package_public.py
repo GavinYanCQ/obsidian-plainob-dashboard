@@ -25,6 +25,7 @@ DOCS = (
     'CHANGELOG.md', 'LICENSE', 'CONTRIBUTING.md',
     '.gitignore', '.github/workflows/check.yml', 'docs/INSTALL.en.md',
     'docs/INSTALL.zh-CN.md', 'docs/PRIVACY.md', 'docs/RELEASE-CHECKLIST.md', 'docs/RELEASE-1.4.1.md',
+    'docs/RELEASE-1.4.2.md', 'docs/COMMUNITY-REVIEW.md',
 )
 SCRIPTS = (
     'work/build_workbench.py', 'work/package_public.py', 'work/prepare_demo.cjs',

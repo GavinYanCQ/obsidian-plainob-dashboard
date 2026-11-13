@@ -1,49 +1,38 @@
 # Release checklist / 发布清单
 
-## Automated release preparation
+## 1.4.2 evidence / 验证记录
 
-- [x] Build the runtime and pass all 72 automated tests, including a rebuild from the extracted source archive.
-- [x] Package with the explicit allowlist; inspect the manifest, versions file and SHA-256 checksums.
-- [x] Verify installer/source archives contain no personal settings, migration profiles, note content, credentials or backups.
-- [x] Prepare five linked project-page languages (English, Simplified Chinese, Traditional Chinese, Japanese and Korean), bilingual installation instructions, and the MIT license with author credit GavinCQ.
-- [x] Integrate the maintainer-supplied Ko-fi link and unchanged WeChat payment image in all five project pages.
+- [x] Review the code and public materials; [findings and remaining boundaries](COMMUNITY-REVIEW.md).
+- [x] Fix automatic processing before setup confirmation, lifecycle cleanup, repeated creation and global search scope.
+- [x] Pass 79 local automated checks; verify archive integrity, checksums, relative links, identical source rebuild and independent repackaging.
+- [x] User-reported Windows 1.4.2 testing: search, task movement, completion/reopening and project archiving work.
+- [x] User-reported macOS upgrade/use from 1.4.0 works. The old displayed version was resolved by moving the duplicate backup plugin folder outside `plugins`.
+- [x] Explain in both upgrade guides that whole-plugin backups belong outside `plugins`; preserve `data.json`, notes, templates and setup backups when updating.
+- [x] Keep plugin ID `plainob`, MIT author credit GavinCQ, and compatibility history including 1.4.1.
+- [x] Keep the existing 1.4.1 release assets unchanged.
 
-Local preparation verified: public Markdown links resolve; extracted sources rebuild to the identical runtime and can package independently. Archive member counts are recorded in the local verification report. GitHub Actions has also passed the build, all 72 checks and packaging on both Windows and macOS for the published 1.4.1 commit; see the [verified run](https://github.com/GavinYanCQ/obsidian-plainob-dashboard/actions/runs/43394461440). The five project-page languages do not add plugin interface languages: the interface still supports Simplified Chinese and English only. Translated pages have not yet received independent native-speaker review.
+The reports above came from the user on 2026-11-13. They are not independently observed native tests. The user did not specify the previous Windows version. Fresh-install edge cases for 1.4.2 have automated coverage but have not all received individual native acceptance.
 
-Real Windows demo captures are included for both PlainOB interface languages: home, body-text search/navigation, custom bookshelf covers and independent project steps. The search and task animations are keyframe sequences of actual UI operations, not continuous recordings. Task transitions in these animations use the card menu; automated drag input did not trigger the drop, so these captures are not evidence of drag behavior. Prior user acceptance remains the reported evidence for dragging. No personal vault content is included in the published captures.
+For the exact release commit, inspect [Windows/macOS Actions](https://github.com/GavinYanCQ/obsidian-plainob-dashboard/actions) and [1.4.2 release assets](https://github.com/GavinYanCQ/obsidian-plainob-dashboard/releases/tag/1.4.2). Build, test and package results must pass before publication. The release must use tag `1.4.2`, matching the manifest, with individual `main.js`, `manifest.json` and `styles.css` assets. The installer/source ZIPs and checksums are additional assets.
 
-## Native acceptance on Windows and macOS
+## Remaining native scenarios / 扩展验收
 
-Use a separate test vault on each OS. Automated filesystem/API simulations do not replace these checks.
+- [ ] Fresh install with no other plugins; restart before confirming setup and verify no automatic note changes.
+- [ ] Independently observe Chinese/English UI with English/Chinese/custom folders on both systems.
+- [ ] Verify real editor navigation into root-level and outside-mapping search hits.
+- [ ] Exercise optional Metadata Menu 0.8.12 integration separately, including preserved conflicting fields.
+- [ ] Independently observe upgrade, archive conflicts, interrupted setup and profile import on both systems.
 
-**User-reported desktop acceptance:** the generic 1.4.1 installer was tested in initially empty Windows and macOS vaults and reported working on both. The Windows report explicitly included Chinese/English setup and Task Management; the macOS follow-up reported no problems with the requested acceptance round. This is user acceptance, not an independently observed UI test. Individual extended scenarios not specifically reported below remain unconfirmed.
+## Community listing / 社区上架
 
-**双端使用者验收反馈：**Windows 空白测试库的中英文安装和任务管理反馈正常；Mac 端随后也反馈本轮测试正常。双端基础安装与任务管理验收完成。未逐项反馈的扩展场景不据此标记完成。
+- [ ] Run the official directory scan against the exact release commit and assets; address errors and inspect warnings.
+- [ ] Confirm how the official build verifier handles the documented Python build; local reproducibility is verified, official scanner compatibility is not yet verified.
+- [ ] Complete the community listing submission and address feedback. No approval or listing is claimed here.
 
-- [x] Baseline installation and task-use acceptance reported on both Windows and macOS.
+## Historical baseline / 历史记录
 
-- [ ] Fresh install with no other plugins: no personal greeting, note, project or fixed disk path.
-- [ ] English UI + English folders; Chinese UI + Chinese folders; mixed UI/folder scheme.
-- [ ] Custom mappings into an existing vault keep old files unchanged during setup.
-- [ ] Check the setup preview, create missing starter files, rerun without duplicating or overwriting.
-- [ ] Capture idea, create/apply templates, choose category, use covers and search navigation.
-- [ ] Task completion/reopening, independent project steps, whole-project archive/restore and same-column sorting.
-- [ ] Optional Metadata Menu 0.8.12 integration and preserved conflicting fields.
-- [ ] Import a profile on the other OS; verify relative mappings and documents before enabling optional sync.
-- [ ] Upgrade an existing installation while preserving saved settings and notes.
-- [ ] Light/dark appearance, keyboard access and actual note-position navigation.
+The public 1.4.1 preview had 72 checks and [Windows/macOS CI](https://github.com/GavinYanCQ/obsidian-plainob-dashboard/actions/runs/43394461440). The user reported initial installation and task use in empty Windows/macOS test vaults, with Chinese/English setup explicitly covered on Windows. Seven release-asset hashes and anonymous installer download were verified. This evidence applies to 1.4.1, not unreported scenarios for 1.4.2.
 
-Earlier user acceptance covered Windows/macOS task use and cross-device dragging on 1.4.0. These boxes describe clean-install acceptance for the generic 1.4.1 distribution and have not been marked complete on that basis.
+Screenshots/GIFs show actual Windows demo-vault operations. Animations are keyframe sequences, not continuous recordings; task captures use card menus and do not independently prove drag behavior. No personal vault content is included. The five README languages do not add plugin UI languages: the interface remains Simplified Chinese/English. Translations have not received independent native-speaker review.
 
-## Publication status / 发布状态
-
-- [x] Choose the public GitHub repository and review the exact source archive.
-- [x] Run the Windows/macOS CI matrix in that repository and inspect results.
-- [x] Confirm native acceptance results and remaining limitations; set a release tag matching manifest version.
-- [x] Upload the three runtime files and installer archive to a GitHub preview release.
-- [x] Verify all seven release-asset SHA-256 digests; download the public installer and checksum file without login and confirm they match.
-- [x] Add installer download and changelog links to all five project-page languages.
-- [ ] Complete the community-submission code and documentation review before requesting listing.
-- [ ] Submit PlainOB to the Obsidian Community directory.
-
-截至 2026-11-13，[GitHub 仓库](https://github.com/GavinYanCQ/obsidian-plainob-dashboard)与 [1.4.1 预览版 Release](https://github.com/GavinYanCQ/obsidian-plainob-dashboard/releases/tag/1.4.1)已公开，七个附件校验通过，并已验证未登录用户可下载安装包。五种语言首页均提供安装包与更新记录入口。Obsidian 社区上架前检查和提交仍待后续进行。
+1.4.2 已收到双端使用正常的反馈，79 项本地自动检查通过。整份插件备份应放在 plugins 目录之外。GitHub 发布结果以 Releases 和 Actions 为准；官方扫描、扩展验收与社区上架仍单独记录，不视为已获批准。

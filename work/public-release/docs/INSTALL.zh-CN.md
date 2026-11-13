@@ -36,7 +36,9 @@ Windows 可在资源管理器中打开 Vault 目录；macOS 可在 Finder 中按
 
 保存编辑，关闭 PlainOB，然后只替换 `main.js`、`manifest.json`、`styles.css`，重新启用。保留自己的 `data.json` 和 `setup-backups`；不要用他人的配置覆盖。已有设置仍生效，无需重新走“新建系统”。降级前备份，较新格式的设置可能无法被旧版本读取。
 
-目前使用上述手动方式。GitHub 发布后，可选用 [BRAT](https://tfthacker.com/BRAT) 添加正式仓库地址并检查更新；BRAT 会下载更新并重新加载插件。社区上架后，可在 Obsidian“设置 → 第三方插件 → 检查更新”中更新 PlainOB。Obsidian 的社区插件默认不会自动更新，仍由使用者决定何时安装。
+插件文件夹的整份备份应存放在 `plugins` 目录之外，例如 Vault 外的备份目录。不要把 `plainob_backup` 等仍含 `manifest.json` 的副本放在 `plugins` 中，否则可能被识别为另一个插件。更新时确认三个运行文件直接位于正在使用的 `plainob` 文件夹内；Mac 上用 `Command + Q` 完全退出后重新打开，再核对版本。
+
+目前使用上述手动方式。也可选用 [BRAT](https://tfthacker.com/BRAT) 添加 `GavinYanCQ/obsidian-plainob-dashboard` 并检查更新；BRAT 会下载更新并重新加载插件。社区上架后，可在 Obsidian“设置 → 第三方插件 → 检查更新”中更新 PlainOB。Obsidian 的社区插件默认不会自动更新，仍由使用者决定何时安装。
 
 Windows、macOS 上的每个 Vault 分别维护插件版本；笔记同步完成不代表插件代码也已升级。更新后分别核对版本号。模板、分类清单和 AI 规则属于使用者的文件，升级代码默认保留，不会用新默认模板覆盖个人修改；涉及这些文件的新版变更，会单独说明。
 
