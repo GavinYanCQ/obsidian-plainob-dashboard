@@ -34,7 +34,7 @@
 2. **理得清**：内置四类知识目录，点击直达对应子类的笔记。
 3. **推得动**：一套极简的任务看板，兼顾学习、生活与工作。支持独立的单条任务，也支持拆解项目下的连续子步骤，随时看清哪些待办、哪些在做、哪些已完成。
 
-![PlainOB 中文演示库首页](docs/images/home-zh.png)
+[![PlainOB 中文演示库首页](docs/images/home-zh.png)](docs/images/home-zh.png)
 
 ## 🚀 快速开始
 
@@ -58,22 +58,24 @@
 
 ## 👀 看看实际操作
 
+点击图片或 GIF 可查看原始尺寸。新版素材使用应用原生导出的无损 PNG 与聚焦操作区域的高清动画帧。
+
 下列画面来自真实 Obsidian 中的虚构演示库。动图按操作关键画面合成，展示结果与步骤，不是连续录屏。
 
 **搜索正文并跳转到匹配句：**
 
-![正文关键词搜索与原文定位](docs/images/search-demo-zh.gif)
+[![正文关键词搜索与原文定位](docs/images/search-demo-zh.gif)](docs/images/search-demo-zh.gif)
 
 **任务从待办到执行中，再勾选完成并移入已完成：**此段通过卡片菜单操作。
 
-![通过菜单调整任务状态与完成时间](docs/images/task-demo-zh.gif)
+[![通过菜单调整任务状态与完成时间](docs/images/task-demo-zh.gif)](docs/images/task-demo-zh.gif)
 
 <details>
 <summary>查看书架与独立项目步骤</summary>
 
-![自定义封面书架](docs/images/bookshelf-zh.png)
+[![自定义封面书架](docs/images/bookshelf-zh.png)](docs/images/bookshelf-zh.png)
 
-![项目步骤独立显示状态](docs/images/project-steps-zh.png)
+[![项目步骤独立显示状态](docs/images/project-steps-zh.png)](docs/images/project-steps-zh.png)
 
 </details>
 

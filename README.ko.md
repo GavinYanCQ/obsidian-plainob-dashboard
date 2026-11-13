@@ -34,7 +34,7 @@ Obsidian을 열었을 때 배경화면, 달력, 시계, 뽀모도로 타이머�
 2. **정리하기**: 네 가지 지식 디렉터리를 통해 각 분류의 노트로 빠르게 이동합니다.
 3. **진행하기**: 학습, 생활, 업무를 위한 간결한 작업 보드입니다. 독립적인 할 일도, 프로젝트를 순서대로 진행하기 위한 단계별 작업도 관리하며, 무엇이 대기 중이고 진행 중이며 완료됐는지 한눈에 확인합니다.
 
-![영어 데모 보관함의 PlainOB 홈 화면](docs/images/home-en.png)
+[![영어 데모 보관함의 PlainOB 홈 화면](docs/images/home-en.png)](docs/images/home-en.png)
 
 ## 🚀 빠른 시작
 
@@ -58,22 +58,24 @@ Obsidian을 열었을 때 배경화면, 달력, 시계, 뽀모도로 타이머�
 
 ## 👀 실제 사용 모습
 
+이미지나 GIF를 클릭하면 원본 해상도로 볼 수 있습니다. 새 자료는 앱에서 직접 내보낸 무손실 PNG와 조작 영역에 초점을 맞춘 고해상도 프레임을 사용합니다.
+
 아래 화면은 실제 Obsidian 데스크톱 앱에 만든 가상의 데모 보관함입니다. PlainOB 인터페이스와 데모 노트는 영어로 표시됩니다. Obsidian 자체의 조작 요소는 앱의 언어 설정을 따릅니다. 애니메이션은 주요 조작 화면을 이어 붙인 것으로, 연속 화면 녹화가 아닙니다.
 
 **본문을 검색하고 일치하는 문장으로 이동:**
 
-![본문 키워드 검색과 원문 위치로 이동](docs/images/search-demo-en.gif)
+[![본문 키워드 검색과 원문 위치로 이동](docs/images/search-demo-en.gif)](docs/images/search-demo-en.gif)
 
 **카드 메뉴로 작업을 Active로 옮기고, 완료를 체크한 뒤 Done에 배치:**
 
-![카드 메뉴를 이용한 작업 상태 변경과 완료 시각](docs/images/task-demo-en.gif)
+[![카드 메뉴를 이용한 작업 상태 변경과 완료 시각](docs/images/task-demo-en.gif)](docs/images/task-demo-en.gif)
 
 <details>
 <summary>책장 표지와 개별 프로젝트 단계 보기</summary>
 
-![사용자 지정 표지를 표시한 책장](docs/images/bookshelf-en.png)
+[![사용자 지정 표지를 표시한 책장](docs/images/bookshelf-en.png)](docs/images/bookshelf-en.png)
 
-![독립적으로 관리하는 프로젝트 단계](docs/images/project-steps-en.png)
+[![독립적으로 관리하는 프로젝트 단계](docs/images/project-steps-en.png)](docs/images/project-steps-en.png)
 
 </details>
 

@@ -34,7 +34,7 @@ Obsidian を開いたとき、最初に目に入るのが壁紙、カレンダ�
 2. **整理する**：四つの知識ディレクトリから、各カテゴリのノートへすぐに移動する。
 3. **進める**：学習、暮らし、仕事のための最小限のタスクボード。単独のタスクも、プロジェクトを順番に進めるためのステップも、「未着手」「進行中」「完了」を見渡せるようにする。
 
-![英語のデモ保管庫に表示した PlainOB のホーム](docs/images/home-en.png)
+[![英語のデモ保管庫に表示した PlainOB のホーム](docs/images/home-en.png)](docs/images/home-en.png)
 
 ## 🚀 はじめに
 
@@ -58,22 +58,24 @@ Obsidian を開いたとき、最初に目に入るのが壁紙、カレンダ�
 
 ## 👀 実際の操作
 
+画像や GIF をクリックすると元の解像度で表示できます。新しい素材は、アプリから直接出力した可逆圧縮 PNG と、操作部分を拡大した高解像度フレームを使用しています。
+
 以下は、実際の Obsidian デスクトップアプリに作成した架空のデモ保管庫です。PlainOB の画面とデモノートは英語です。Obsidian 自体の操作部分はアプリ本体の言語設定に従います。アニメーションは操作の要所のスクリーンショットをつないだもので、連続した画面録画ではありません。
 
 **本文を検索し、一致する文へ移動：**
 
-![本文のキーワード検索と該当箇所への移動](docs/images/search-demo-en.gif)
+[![本文のキーワード検索と該当箇所への移動](docs/images/search-demo-en.gif)](docs/images/search-demo-en.gif)
 
 **カードメニューでタスクを Active に移し、完了にチェックして Done に配置：**
 
-![カードメニューによるタスクの状態変更と完了日時](docs/images/task-demo-en.gif)
+[![カードメニューによるタスクの状態変更と完了日時](docs/images/task-demo-en.gif)](docs/images/task-demo-en.gif)
 
 <details>
 <summary>本棚の表紙と、個別に管理できるプロジェクトのステップを見る</summary>
 
-![カスタム表紙を表示した本棚](docs/images/bookshelf-en.png)
+[![カスタム表紙を表示した本棚](docs/images/bookshelf-en.png)](docs/images/bookshelf-en.png)
 
-![個別に管理できるプロジェクトのステップ](docs/images/project-steps-en.png)
+[![個別に管理できるプロジェクトのステップ](docs/images/project-steps-en.png)](docs/images/project-steps-en.png)
 
 </details>
 

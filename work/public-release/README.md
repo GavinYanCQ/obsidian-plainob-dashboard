@@ -34,7 +34,7 @@ When I open Obsidian, I don't want the first thing I see to be a screen full of 
 2. **Keep it organized**: Browse four knowledge directories and click through to the notes in each category.
 3. **Move it forward**: A minimal task board for learning, life and work. Manage standalone tasks or break a project into a sequence of steps, and always see what's waiting, in progress or done.
 
-![PlainOB home in the English demo vault](docs/images/home-en.png)
+[![PlainOB home in the English demo vault](docs/images/home-en.png)](docs/images/home-en.png)
 
 ## 🚀 Quick start
 
@@ -58,22 +58,24 @@ This project page is available in English, Simplified Chinese, Traditional Chine
 
 ## 👀 See it in use
 
+Click an image or GIF to open it at its original resolution. These new captures use lossless app-rendered PNGs and focused, high-resolution animation frames.
+
 These captures show a fictional demo vault in the real Obsidian desktop app, with PlainOB's interface and demo notes in English. Obsidian's own controls follow the host app language. Animations combine key action screenshots; they are not continuous screen recordings.
 
 **Search note text and jump to the matching passage:**
 
-![Search and jump to a matching passage](docs/images/search-demo-en.gif)
+[![Search and jump to a matching passage](docs/images/search-demo-en.gif)](docs/images/search-demo-en.gif)
 
 **Move a task to Active, check it complete, then place it in Done using the card menu:**
 
-![Task state changes through the card menu](docs/images/task-demo-en.gif)
+[![Task state changes through the card menu](docs/images/task-demo-en.gif)](docs/images/task-demo-en.gif)
 
 <details>
 <summary>Bookshelf covers and independent project steps</summary>
 
-![Custom bookshelf covers](docs/images/bookshelf-en.png)
+[![Custom bookshelf covers](docs/images/bookshelf-en.png)](docs/images/bookshelf-en.png)
 
-![Independent project steps](docs/images/project-steps-en.png)
+[![Independent project steps](docs/images/project-steps-en.png)](docs/images/project-steps-en.png)
 
 </details>
 
@@ -92,7 +94,7 @@ These captures show a fictional demo vault in the real Obsidian desktop app, wit
 
 Version **1.4.2** targets **Windows and macOS desktop**, with **Obsidian 1.15.0 or later**. Mobile is not supported. The same plugin files run on both desktop systems; no machine-specific paths are included.
 
-Manual installation is currently supported; this plugin has not been submitted to the Obsidian community directory. See [installation and upgrades](docs/INSTALL.en.md).
+Manual installation is currently supported; this plugin is not yet listed in the Obsidian community directory. See [installation and upgrades](docs/INSTALL.en.md).
 
 The download contains plugin code and documentation. It does not contain a personal vault, saved settings, credentials, notes or sync configuration. Enabling the plugin opens setup; folders and optional starter files are created only after you review and apply its plan. Your greeting name starts blank.
 

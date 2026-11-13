@@ -34,7 +34,7 @@
 2. **理得清**：內建四類知識目錄，點選就能前往對應分類的筆記。
 3. **推得動**：一套極簡的任務看板，兼顧學習、生活與工作。支援獨立任務，也能將專案拆成連續步驟，隨時看清哪些待辦、哪些進行中、哪些已完成。
 
-![PlainOB 英文示範筆記庫首頁](docs/images/home-en.png)
+[![PlainOB 英文示範筆記庫首頁](docs/images/home-en.png)](docs/images/home-en.png)
 
 ## 🚀 快速開始
 
@@ -58,22 +58,24 @@
 
 ## 👀 看看實際操作
 
+點擊圖片或 GIF 可查看原始尺寸。新版素材使用應用程式原生匯出的無損 PNG 與聚焦操作區域的高畫質動畫影格。
+
 下列畫面來自真實 Obsidian 桌面版中的虛構示範筆記庫，PlainOB 介面與示範筆記使用英文。Obsidian 本身的控制項依主程式語言顯示。動圖由操作的關鍵畫面組成，並非連續錄影。
 
 **搜尋內文並跳至符合的句子：**
 
-![內文關鍵字搜尋與原文定位](docs/images/search-demo-en.gif)
+[![內文關鍵字搜尋與原文定位](docs/images/search-demo-en.gif)](docs/images/search-demo-en.gif)
 
 **透過卡片選單將任務移至進行中，勾選完成後再放入已完成：**
 
-![透過卡片選單調整任務狀態與完成時間](docs/images/task-demo-en.gif)
+[![透過卡片選單調整任務狀態與完成時間](docs/images/task-demo-en.gif)](docs/images/task-demo-en.gif)
 
 <details>
 <summary>查看書架與獨立專案步驟</summary>
 
-![自訂封面的書架](docs/images/bookshelf-en.png)
+[![自訂封面的書架](docs/images/bookshelf-en.png)](docs/images/bookshelf-en.png)
 
-![可獨立安排的專案步驟](docs/images/project-steps-en.png)
+[![可獨立安排的專案步驟](docs/images/project-steps-en.png)](docs/images/project-steps-en.png)
 
 </details>
 
